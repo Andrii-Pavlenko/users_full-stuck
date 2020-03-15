@@ -3,12 +3,6 @@ import {Button, Form, Header, Icon, Label, Modal} from "semantic-ui-react";
 import {USER_TEXT} from "../../text";
 import {connect} from "react-redux";
 import {
-  saveUser,
-  setFormDisplayed,
-  setUserFormEmail,
-  setUserFormName
-} from "../../actions/users";
-import {
   getUserCreateFormDisplayed,
   getUserFormEditMode,
   getUserFormEmail,
@@ -17,7 +11,7 @@ import {
   getUserSavingError
 } from "../../selectors/users";
 
-const UserForm = ({ name, email, editMode, error, displayed, saveUser, saving, hide, show, setName, setEmail }) => {
+const UserForm = ({ name, email, editMode, displayed, error, saving, saveUser, show, hide, setName, setEmail }) => {
   if (!displayed) {
     return null;
   }
@@ -26,18 +20,18 @@ const UserForm = ({ name, email, editMode, error, displayed, saveUser, saving, h
   const icon = `${editMode ? 'pencil' : 'plus'} square`;
 
   return (
-    <Modal closeIcon open={displayed} onClose={hide}>
+    <Modal closeIcon open onClose={hide}>
       <Header icon={icon}
               content={editMode ? USER_TEXT.EDIT_USER : USER_TEXT.NEW_USER} />
       <Modal.Content>
         <Form>
           <Form.Field disabled={saving}>
-            <Label>{USER_TEXT.NAME}</Label>
-            <input value={name} onChange={e => setName(e.target.value)} autoFocus />
+            <label>{USER_TEXT.NAME}</label>
+            <input value={name} onChange={event => setName(event.target.value)} autoFocus />
           </Form.Field>
-          <Form.Field disabled={saving} error={email.trim() !== '' && !emailValid} >
-            <Label>{USER_TEXT.EMAIL}</Label>
-            <input value={email} onChange={e => setEmail(e.target.value)} />
+          <Form.Field disabled={saving} error={email.trim() !== '' && !emailValid}>
+            <label>{USER_TEXT.EMAIL}</label>
+            <input value={email} onChange={event => setEmail(event.target.value)} />
           </Form.Field>
         </Form>
       </Modal.Content>
@@ -57,14 +51,14 @@ const UserForm = ({ name, email, editMode, error, displayed, saveUser, saving, h
 export default connect(state => ({
   name: getUserFormName(state),
   email: getUserFormEmail(state),
-  saving: getUserSaving(state),
   editMode: getUserFormEditMode(state),
+  saving: getUserSaving(state),
   error: getUserSavingError(state),
-  displayed: getUserCreateFormDisplayed(state),
+  displayed: getUserCreateFormDisplayed(state)
 }), dispatch => ({
   saveUser: () => dispatch(saveUser()),
   show: () => dispatch(setFormDisplayed(true)),
   hide: () => dispatch(setFormDisplayed(false)),
   setName: name => dispatch(setUserFormName(name)),
-  setEmail: email => dispatch(setUserFormEmail(email)),
+  setEmail: email => dispatch(setUserFormEmail(email))
 }))(UserForm);

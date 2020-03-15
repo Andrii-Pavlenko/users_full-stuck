@@ -1,6 +1,7 @@
 {
   "name": "rest",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -16,10 +17,10 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "node-postgres": "^0.1.4",
     "pg": "^7.18.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
-  },
-  "description": ""
+  }
 }

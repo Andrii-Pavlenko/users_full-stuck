@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import {Table, Message, Loader, Divider, Button, Icon} from 'semantic-ui-react';
-import {OPERATIONS, USER_TEXT} from '../../text';
-import { connect } from 'react-redux';
-import {loadUsers, removeUser, setFormDisplayed} from '../../actions/users';
+import React, {useEffect} from 'react';
+import {Button, Divider, Icon, Loader, Message, Table} from "semantic-ui-react";
+import {OPERATIONS, USER_TEXT} from "../../text";
+import {connect} from "react-redux";
+import {loadUsers, removeUser, setFormDisplayed} from "../../actions/users";
 import {getUserLoadingError, getUserRemovedIds, getUsers} from "../../selectors/users";
 import UserForm from "./UserForm";
 
-const Users = ({ users, error, load, showCreateUserForm, removedIds, removeUser, showEditUserForm }) => {
+const Users = ({ users, removedIds, error, load, showCreateUserForm, showEditUserForm, removeUser }) => {
   useEffect(() => {
     load();
   }, [load]);
@@ -16,9 +16,9 @@ const Users = ({ users, error, load, showCreateUserForm, removedIds, removeUser,
       <Message negative>
         <Message.Header>{error}</Message.Header>
         <Divider />
-        <Button type="button" onClick={load}>{USER_TEXT.RETRY_LOADING}</Button>
+        <Button onClick={load}>{USER_TEXT.RETRY_LOADING}</Button>
       </Message>
-    )
+    );
   } else if (users) {
     return (
       <>
@@ -65,10 +65,10 @@ const Users = ({ users, error, load, showCreateUserForm, removedIds, removeUser,
 export default connect(state => ({
   users: getUsers(state),
   removedIds: getUserRemovedIds(state),
-  error: getUserLoadingError(state),
+  error: getUserLoadingError(state)
 }), dispatch => ({
   load: () => dispatch(loadUsers()),
   showCreateUserForm: () => dispatch(setFormDisplayed(true)),
   showEditUserForm: id => dispatch(setFormDisplayed(true, id)),
-  removeUser: id => dispatch(removeUser(id)),
+  removeUser: id => dispatch(removeUser(id))
 }))(Users);
