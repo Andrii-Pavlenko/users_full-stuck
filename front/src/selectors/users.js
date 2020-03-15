@@ -1,0 +1,10 @@
+export const getUsers = state => state.users.list;
+export const getUserLoadingError = state => state.users.loadingError;
+export const getUserSaving = state => state.users.saving;
+export const getUserSavingError = state => state.users.savingError;
+export const getUserCreateFormDisplayed = state => state.users.formDisplayed;
+export const getUserRemovedIds = state => state.users.removedIds;
+export const getUserFormName = state => state.users.formName;
+export const getUserFormEmail = state => state.users.formEmail;
+export const getUserEditedId = state => state.users.editedId;
+export const getUserFormEditMode = state => state.users.editedId !== null;
