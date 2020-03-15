@@ -39,7 +39,9 @@ app.use(session({
 
 app.post('/login', bodyParser.json(), (req, res) => {
   const { login, password } = req.body;
-  client.query('SELECT * FROM users WHERE login = $1 AND password = $2', [login, hash(password)], (err, dbResponse) => {
+  console.log(hash(password));
+  
+  client.query('SELECT * FROM users WHERE login = $1 AND password = $2', [login, hash(password)], (err, dbResponse) => {    
     if (dbResponse.rows.length > 0) {
       req.session.login = login;
       res.json({

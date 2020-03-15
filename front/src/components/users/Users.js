@@ -45,7 +45,7 @@ const Users = ({ users, removedIds, error, load, showCreateUserForm, showEditUse
                   </Table.Cell>
                   <Table.Cell>
                     <Button icon loading={removing} disabled={removing} onClick={() => removeUser(user.id)}>
-                      <Icon name="close" color="red" />
+                      <Icon name="close" />
                     </Button>
                   </Table.Cell>
                 </Table.Row>
@@ -58,7 +58,7 @@ const Users = ({ users, removedIds, error, load, showCreateUserForm, showEditUse
       </>
     );
   } else {
-    return <Loader active inline="centered" />;
+    return <Loader active inline='centered' />;
   }
 };
 

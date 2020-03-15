@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Form, Header, Icon, Label, Modal} from "semantic-ui-react";
 import {USER_TEXT} from "../../text";
+import {saveUser, setFormDisplayed, setUserFormEmail, setUserFormName} from "../../actions/users";
 import {connect} from "react-redux";
 import {
   getUserCreateFormDisplayed,
@@ -16,7 +17,7 @@ const UserForm = ({ name, email, editMode, displayed, error, saving, saveUser, s
     return null;
   }
 
-  const emailValid = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  const emailValid = email.match(/^[\w.]+@\w+(\.\w+)+$/);
   const icon = `${editMode ? 'pencil' : 'plus'} square`;
 
   return (
@@ -39,8 +40,8 @@ const UserForm = ({ name, email, editMode, displayed, error, saving, saveUser, s
         { error ? <Label color="red">{error}</Label> : null }
         <Button onClick={() => saveUser()}
                 loading={saving}
-                color="green"
-                disabled={saving || name.trim() === '' || !emailValid}>
+                disabled={saving || name.trim() === '' || !emailValid}
+                color="green">
           <Icon name={icon} /> {editMode ? USER_TEXT.SAVE_USER : USER_TEXT.CREATE_USER}
         </Button>
       </Modal.Actions>
